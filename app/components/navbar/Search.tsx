@@ -12,9 +12,23 @@ const Search = () => {
   const params = useSearchParams();
   const { getByValue } = useCountries();
   const locationValue = params?.get('locationValue'); 
-  const startDate = params?.get('startDate');
-  const endDate = params?.get('endDate');
-  const guestCount = params?.get('guestCount');
+  const titleValue = params?.get('title'); 
+  const descriptionValue = params?.get('description'); 
+ 
+
+  const titleLabel = useMemo(() => {
+    if (titleValue) {
+      return getByValue(titleValue as string)?.label;
+    }
+    return 'nome';
+  }, [titleValue, getByValue]);
+  
+  const descriptionLabel = useMemo(() => {
+    if (descriptionValue) {
+      return getByValue(descriptionValue as string)?.label;
+    }
+    return 'descrição';
+  }, [descriptionValue, getByValue]);
 
   const locationLabel = useMemo(() => {
     if (locationValue) {
@@ -23,41 +37,14 @@ const Search = () => {
     return 'localização';
   }, [locationValue, getByValue]);
 
-  const durationLabel = useMemo(() => {
-    if (startDate && endDate) {
-      const start = new Date(startDate as string);
-      const end = new Date(endDate as string);
-      let diff = differenceInDays(end, start);
-
-      if (diff === 0) {
-        diff = 1;
-      }
-
-      return `${diff} Days`;
-    }
-
-    return 'nome'
-  }, [startDate, endDate]);
-
-  const guestLabel = useMemo(() => {
-    if (guestCount) {
-      return `${guestCount} Guests`;
-    }
-
-    return 'descrição';
-  }, [guestCount]);
 
   return ( 
     <div onClick={searchModal.onOpen} className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">
       <div className="flex flex-row items-center justify-between">
-        <div className="text-sm font-semibold px-6">nome</div>
-        {/* <div className="text-sm font-semibold px-6">{locationLabel}</div> */}
-        <div className="hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center">localização</div>
-        {/* <div className="hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center">{durationLabel}</div> */}
-
+        <div className="text-sm font-semibold px-6">{titleLabel}</div>
+        <div className="hidden sm:block text-sm font-semibold px-6 border-x-[1px] flex-1 text-center">{descriptionLabel}</div>
         <div className="text-sm pl-6 pr-2 font-semibold flex flex-row items-center gap-3">
-          <div className="hidden sm:block">categoria</div>
-          {/* <div className="hidden sm:block">{guestLabel}</div> */}
+          <div className="hidden sm:block">{locationLabel}</div>
           <div className="p-2 bg-blue-300 rounded-full text-white">
             <BiSearch size={18} />
           </div>

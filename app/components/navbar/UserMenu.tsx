@@ -15,6 +15,8 @@ import Avatar from "../Avatar";
 interface UserMenuProps { currentUser?: SafeUser | null }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  console.log(currentUser)
+  console.log(currentUser?.role)
   const router = useRouter();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -25,7 +27,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
   const onRent = useCallback(() => { 
     if (!currentUser) { return loginModal.onOpen(); }
-    rentModal.onOpen();
+    if (currentUser?.role === "admin") { return rentModal.onOpen(); }
+    return
   }, [loginModal, rentModal, currentUser]);
 
   return ( 
@@ -45,9 +48,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem label="Favoritos" onClick={() => router.push('/favorites')} />
-                <MenuItem label="As Minhas" onClick={() => router.push('/properties')} />
-                <MenuItem label="Nova Concha" onClick={rentModal.onOpen} />
+                <MenuItem label="As Minhas Favoritas" onClick={() => router.push('/favorites')} />
+                { currentUser?.role === "admin" ? 
+                  <>
+                    <MenuItem label="Criadas por Mim" onClick={() => router.push('/properties')} />
+                    <MenuItem label="Criar Nova Concha" onClick={rentModal.onOpen} />
+                  </>
+                  :
+                  ''
+                }
                 <hr />
                 <MenuItem label="Logout" onClick={() => signOut()} />
               </>

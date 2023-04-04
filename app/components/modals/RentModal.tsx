@@ -23,21 +23,12 @@ const RentModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.CATEGORY);
 
-  const { 
-    register, 
-    handleSubmit,
-    setValue,
-    watch,
-    formState: {
-      errors,
-    },
-    reset,
-  } = useForm<FieldValues>({
+  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
       category: '',
       location: null,
-      guestCount: 1,
       imageSrc: '',
+      imageSrcQRcode: null,
       title: '',
       description: '',
     }
@@ -45,8 +36,6 @@ const RentModal = () => {
 
   const location = watch('location');
   const category = watch('category');
- 
-  
   const imageSrc = watch('imageSrc');
 
   const Map = useMemo(() => dynamic(() => import('../Map'), { 
@@ -157,7 +146,7 @@ const RentModal = () => {
     if (step === STEPS.INFO) {
       bodyContent = (
         <div className="flex flex-col gap-8">
-          <Heading title="Info Tags" subtitle="Escreva palavras que identifiquem esta nova Concha."/>
+          <Heading title="Deseja Gravar?" subtitle="Obrigado por criar esta nova entrada."/>
           Info Tags here
         </div>
       )
