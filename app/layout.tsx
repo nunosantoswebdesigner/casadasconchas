@@ -2,7 +2,6 @@ import './globals.css'
 import Navbar from '@/app/components/navbar/Navbar';
 import LoginModal from '@/app/components/modals/LoginModal';
 import RegisterModal from '@/app/components/modals/RegisterModal';
-import NewListingButton from '@/app/components/NewListingButton';
 import SearchModal from '@/app/components/modals/SearchModal';
 import RentModal from '@/app/components/modals/RentModal';
 import ToasterProvider from '@/app/providers/ToasterProvider';
@@ -18,7 +17,7 @@ export const metadata = {
 }
 
 export default async function RootLayout( { children, } : { children: React.ReactNode } ) {
-  const currentUser = await getCurrentUser();
+  const currentUser: any = await getCurrentUser();
   return (
     <html lang="en">
       <body className={font.className}>
@@ -29,8 +28,6 @@ export default async function RootLayout( { children, } : { children: React.Reac
           <SearchModal />
           <RentModal />
           <Navbar currentUser={currentUser} />
-          <NewListingButton />
-
         </ClientOnly>
         <div className="pb-20 pt-28">
           {children}

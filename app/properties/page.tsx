@@ -8,7 +8,7 @@ import getListings from "@/app/actions/getListings";
 import PropertiesClient from "./PropertiesClient";
 
 const PropertiesPage = async () => {
-  const currentUser = await getCurrentUser();
+  const currentUser: any = await getCurrentUser();
 
   if (!currentUser) {
     return <EmptyState
@@ -17,7 +17,7 @@ const PropertiesPage = async () => {
     />
   }
 
-  const listings = await getListings({ userId: currentUser.id });
+  const listings: any = await getListings({ userId: currentUser.id });
 
   if (listings.length === 0) {
     return (

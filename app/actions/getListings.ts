@@ -2,8 +2,6 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
   userId?: string;
-  startDate?: string;
-  endDate?: string;
   locationValue?: string;
   category?: string;
 }

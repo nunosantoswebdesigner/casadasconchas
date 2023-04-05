@@ -15,8 +15,6 @@ import Avatar from "../Avatar";
 interface UserMenuProps { currentUser?: SafeUser | null }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  console.log(currentUser)
-  console.log(currentUser?.role)
   const router = useRouter();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -58,12 +56,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   ''
                 }
                 <hr />
-                <MenuItem label="Logout" onClick={() => signOut()} />
+                <MenuItem label="Sair" onClick={() => signOut()} />
               </>
             ) : (
               <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                <MenuItem label="Entrar" onClick={loginModal.onOpen} />
+                <MenuItem label="Criar Conta" onClick={registerModal.onOpen} />
               </>
             )}
           </div>

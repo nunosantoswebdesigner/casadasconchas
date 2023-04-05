@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { GiSewedShell, GiOpeningShell, GiGoldShell, GiBackboneShell, GiNautilusShell, GiBeetleShell} from 'react-icons/gi';
+import { GiArmouredShell, GiSewedShell, GiOpeningShell, GiGoldShell, GiBackboneShell, GiNautilusShell, GiBeetleShell,  GiSpikedShell, GiSpiralShell, GiSwirledShell, GiTripleShells, GiTwinShell } from 'react-icons/gi';
 import { SiShell } from 'react-icons/si';
 
 import CategoryBox from "../CategoryBox";
@@ -10,45 +10,68 @@ import Container from '../Container';
 
 export const categories = [
   {
-    label: 'Abalone',
-    icon: GiSewedShell,
-    description: 'All abalones have natural holes that run along one side',
+    label: 'Armoured',
+    icon: GiArmouredShell, 
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
   },
   {
-    label: 'Cowrie',
-    icon: GiOpeningShell,
-    description: 'Cowries have an oval shape that is glossy and smooth to the touch but lined with tiny teeth around both lips of their opening.',
-  },
-  {
-    label: 'Melon',
-    icon: GiBeetleShell,
-    description: 'These colorful shells have an inner lip with three or four plaits (grooves, teeth, or folds). ',
-  },
-  {
-    label: 'Murex',
+    label: 'Backbone',
     icon: GiBackboneShell,
-    description: 'Murex seashells are renowned for their incredible range of ornamentation and sculpture.',
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  }, 
+  {
+    label: 'Beetle',
+    icon: GiBeetleShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  },
+  {
+    label: 'Gold',
+    icon: GiGoldShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
   },
   {
     label: 'Nautilus',
     icon: GiNautilusShell,
-    description: 'This remarkable structures are composed of many chambers and is perfectly proportioned mathematically',
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
   },
   {
-    label: 'Turbo',
-    icon: GiGoldShell,
-    description: 'They belong to the large family of Turbinidae, which consists of several hundred species found mainly in tropical seas.'
-  },
-  {
-    label: 'Clams',
+    label: 'Opening',
     icon: GiOpeningShell,
-    description: 'Clams are a type of mollusk found in the ocean and have two shells that open and close.'
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
   },
   {
-    label: 'Scallop',
-    icon: SiShell,
-    description: 'Scallop seashells are a type of marine bivalve mollusk related to oysters and clams.'
+    label: 'Sewed',
+    icon: GiSewedShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
   },
+  {
+    label: 'Spiked',
+    icon: GiSpikedShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  },
+  {
+    label: 'Spiral',
+    icon: GiSpiralShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  },
+  {
+    label: 'Swirled',
+    icon: GiSwirledShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  }, {
+    label: 'Triple Shells',
+    icon: GiTripleShells,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  }, {
+    label: 'Twin',
+    icon: GiTwinShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  }, {
+    label: 'Scalope',
+    icon: SiShell,
+    description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+  },
+  
 ]
 
 const Categories = () => {

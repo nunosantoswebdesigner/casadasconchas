@@ -35,7 +35,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({ user, description, category }
       <hr />
       { category && ( <ListingCategory icon={category.icon} label={category?.label} description={category?.description} /> )}
       <hr />
-      <div className="text-lg font-light text-neutral-500">{description}</div>
+      <div className="mb-12 lg:mb-0 text-lg font-light text-neutral-500">{description}</div>
     </div>
   );
 };

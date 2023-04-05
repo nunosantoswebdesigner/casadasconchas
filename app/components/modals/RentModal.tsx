@@ -1,5 +1,8 @@
 'use client';
-
+import { CldUploadWidget } from "next-cloudinary";
+import Image from "next/image";
+import { useCallback } from "react";
+import { TbPhotoPlus } from 'react-icons/tb'
 import axios from 'axios';
 import dynamic from 'next/dynamic'
 import useRentModal from '@/app/hooks/useRentModal';
@@ -14,6 +17,8 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from "react";
 import { categories } from '../navbar/Categories';
+import QRCode from 'qrcode'
+import ObjectID from 'bson-objectid';
 
 enum STEPS { DESCRIPTION = 0, CATEGORY = 1, LOCATION = 2, IMAGE = 3, INFO = 4 }
 
@@ -21,14 +26,34 @@ const RentModal = () => {
   const router = useRouter();
   const rentModal = useRentModal();
   const [isLoading, setIsLoading] = useState(false);
-  const [step, setStep] = useState(STEPS.CATEGORY);
+  const [step, setStep] = useState(STEPS.DESCRIPTION);
+  
+  const newId: any =  useState(ObjectID().toHexString())
+	const [qr, setQr] = useState('')
+	const [valueN, setValueN] = useState('')
 
+	const GenerateQRCode = () => {
+		QRCode.toDataURL(newId, {
+			width: 800,
+			margin: 2,
+			color: {
+				dark: '#335383FF',
+				light: '#EEEEEEFF'
+			}
+		}, (err: any, newId: any) => {
+			if (err) return console.error(err)
+
+			console.log(newId)
+			setQr(newId)
+		})
+	}
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
+      id: newId[0],
       category: '',
       location: null,
       imageSrc: '',
-      imageSrcQRcode: null,
+      imageSrcQRCode: qr,
       title: '',
       description: '',
     }
@@ -38,31 +63,26 @@ const RentModal = () => {
   const category = watch('category');
   const imageSrc = watch('imageSrc');
 
-  const Map = useMemo(() => dynamic(() => import('../Map'), { 
-    ssr: false 
-  }), [location]);
-
+  const Map = useMemo(() => dynamic(() => import('../Map'), {  ssr: false }), [location]);
 
   const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true
-    })
+    setValue(id, value, {shouldDirty: true,shouldTouch: true,shouldValidate: true}) 
   }
 
-  const onBack = () => {
-    setStep((value) => value - 1);
-  }
+  /* const setQRCodeFun () => {} */
 
-  const onNext = () => {
+  const onBack = () => { setStep((value) => value - 1);}
+  const onNext = () => { 
     setStep((value) => value + 1);
+    if (step === STEPS.IMAGE) {
+      GenerateQRCode()
+    }
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.INFO) {
-      return onNext();
-    }
+    
+    if (step !== STEPS.INFO) { return onNext(); }
+
     
     setIsLoading(true);
 
@@ -80,12 +100,10 @@ const RentModal = () => {
     .finally(() => {
       setIsLoading(false);
     })
+
   }
 
-  const actionLabel = useMemo(() => {
-    if (step === STEPS.INFO) { return 'Criar Concha' }
-    return 'Próximo'
-  }, [step]);
+  const actionLabel = useMemo(() => { if (step === STEPS.INFO) { return 'Criar Concha' } return 'Próximo' }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
     
@@ -147,7 +165,39 @@ const RentModal = () => {
       bodyContent = (
         <div className="flex flex-col gap-8">
           <Heading title="Deseja Gravar?" subtitle="Obrigado por criar esta nova entrada."/>
-          Info Tags here
+          
+		{/* 	<input 
+				type="text"
+				placeholder="e.g. https://google.com"
+				value={url}
+				onChange={e => setUrl(e.target.value)} />
+			<button onClick={GenerateQRCode}>Generate</button> */}
+			
+				<img src={qr} alt='...' />
+			{/* 	<a href={qr} download="qrcode.png">Download</a> */}
+			
+    {/*   <ImageUpload onChange={() => setQr(qr)} value={qr} /> */}
+    {/* <CldUploadWidget 
+      onUpload={handleUpload} 
+      uploadPreset={uploadPreset}
+      options={{
+        maxFiles: 1
+      }}
+    >
+      {({ open }) => {
+        return (
+          <div onClick={() => open?.()} className="relative cursor-pointer hover:opacity-70 transition border-dashed border-2 p-20 border-neutral-300 flex flex-col justify-center items-center gap-4 text-neutral-600">
+            <TbPhotoPlus size={50} />
+            <div className="font-semibold text-lg">Upload da Imagem</div>
+            {value && (
+              <div className="absolute inset-0 w-full h-full">
+                <Image fill  style={{ objectFit: 'cover' }}  src={value}  alt="..." />
+              </div>
+            )}
+          </div>
+        ) 
+    }}
+    </CldUploadWidget> */}
         </div>
       )
     }

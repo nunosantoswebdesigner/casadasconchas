@@ -14,7 +14,7 @@ const ScanClient: React.FC<ScanClientProps> = ( { listings, currentUser } ) => {
     <Container>
       <Heading
         title="Scan Qr code"
-        subtitle="List of places you favorited!"
+        subtitle="Por favor aponte a camera para o QR Code"
       />
       <div 
         className="
